@@ -55,8 +55,6 @@ public class sqlTest {
             return resultSet;         
         } catch (Exception e) {
             throw e;
-        } finally {
-        	//resultSet needs to stay open for the return and closed after its called
         }
     }
     
