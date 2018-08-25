@@ -76,9 +76,7 @@ public class MainLayout {
 	      column.setText(titles[i]);
 	    }
 
-	    for (int i = 0; i < titles.length; i++) {
-		      table.getColumn(i).pack();
-		    }
+	    
 	    //add the data from the SQL database to the table using the date of the calendar(default is today on launch)
 	    String monthString = monthConvert(calendar.getMonth());        
 		String newDate = calendar.getDay() + " " + monthString + ", " + calendar.getYear();
@@ -102,6 +100,9 @@ public class MainLayout {
 			e.printStackTrace();
 		}
 	    
+		for (int i = 0; i < titles.length; i++) {
+		      table.getColumn(i).pack();
+		    }
 	    
 		
 		//initialize new group for Event info
@@ -268,6 +269,10 @@ public class MainLayout {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				//resizes table columns
+				for (int i = 0; i < titles.length; i++) {
+				      table.getColumn(i).pack();
+				    }
 				
 			}
 		});
