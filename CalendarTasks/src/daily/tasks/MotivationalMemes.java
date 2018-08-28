@@ -45,9 +45,7 @@ public class MotivationalMemes {
         for (Element element : elements) {
             if (element.childNodeSize() > 0) {
                 String a = element.childNode(0).toString();
-                Matcher matcher = pat.matcher(a);
-                
-                
+                Matcher matcher = pat.matcher(a);                
                 if (matcher.find()) {
                 	resultUrls.add(matcher.group(0));
                 }

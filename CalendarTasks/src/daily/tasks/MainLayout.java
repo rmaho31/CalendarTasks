@@ -18,7 +18,7 @@ import java.sql.ResultSet;
 
 public class MainLayout {
 	/* I know this is sloppy and needs to be cleaned up. Trying to figure out the best way to condense some of the clutter
-	 * Initializing some variables to be used later
+	 * 
 	 */
 	Text event1;
 	Text descrip;
@@ -125,10 +125,10 @@ public class MainLayout {
 		//initialize description label and text box. multi-line functionality is wonky need to fix it
 		new Label(eventInfo, SWT.NONE).setText("Description:");
 		descrip = new Text(eventInfo, SWT.MULTI | SWT.WRAP | SWT.BORDER | SWT.V_SCROLL);
-		g2 = new GridData(GridData.FILL, GridData.CENTER, true, false);
-		g2.horizontalSpan = 2;
-		g2.heightHint = 3 * descrip.getLineHeight();
-		descrip.setLayoutData(g2);
+		g1 = new GridData(GridData.FILL, GridData.CENTER, true, false);
+		g1.horizontalSpan = 2;
+		g1.heightHint = 3 * descrip.getLineHeight();
+		descrip.setLayoutData(g1);
 		
 		//initialize Time label and text box
 		new Label(eventInfo, SWT.NONE).setText("Time:");
@@ -151,12 +151,12 @@ public class MainLayout {
 		g1.horizontalSpan = 2;
 		location1.setLayoutData(g1);
 						
-		//Initializes a new button and enters data into SQL database upon pressing it from Event fields
+		//Initializes a new button and enters data into mySQL database upon pressing it from Event fields
 		Button enter = new Button(shell, SWT.PUSH);
 		enter.setText("Enter");
-		GridData g8 = new GridData(GridData.FILL, GridData.CENTER, true, false);
-		g8.horizontalSpan = 2;
-		enter.setLayoutData(g8);
+		g1 = new GridData(GridData.FILL, GridData.CENTER, true, false);
+		g1.horizontalSpan = 2;
+		enter.setLayoutData(g1);
 		enter.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				String monthString = monthConvert(calendar.getMonth());		        
@@ -171,7 +171,7 @@ public class MainLayout {
 			}
 		});
 		
-		//deletes the selected row from the table and also from the SQL database
+		//deletes the selected row from the table and also from the mySQL database
 		Button delete = new Button(shell, SWT.PUSH);
 		delete.setText("Delete");
 		g1 = new GridData(GridData.FILL, GridData.CENTER, true, false);
@@ -198,9 +198,9 @@ public class MainLayout {
 		//Random link to news local news stories will update later
 		Link link = new Link(shell, SWT.RIGHT);
 		link.setText("Random News Story for the day: <a href=\"www.google.com\">link</a>");
-		GridData g3 = new GridData(GridData.FILL, GridData.CENTER, true, false);
-		g3.horizontalSpan = 3;
-		link.setLayoutData(g3);
+		g1 = new GridData(GridData.FILL, GridData.CENTER, true, false);
+		g1.horizontalSpan = 3;
+		link.setLayoutData(g1);
 		link.addListener (SWT.Selection, new Listener () {
 			public void handleEvent(Event event) {
 				org.eclipse.swt.program.Program.launch(event.text);
@@ -209,16 +209,15 @@ public class MainLayout {
 		
 		/*Initialize canvas for random meme photos to be displayed
 		 * It will initialize with a random meme populated from a google
-		 * image search result. Sometimes results with 403 errors. Probably
-		 * should use the search API instead
+		 * image search result. Bug here
 		 */
 		randomPhoto = new Canvas(shell, SWT.BORDER);
-		GridData g5 = new GridData(GridData.FILL, GridData.FILL, true, true);
-		g5.widthHint = 500;
-		g5.heightHint = 500;
-		g5.horizontalSpan = 3;
-		g5.verticalSpan = 3;
-		randomPhoto.setLayoutData(g5);
+		g1 = new GridData(GridData.FILL, GridData.FILL, true, true);
+		g1.widthHint = 500;
+		g1.heightHint = 500;
+		g1.horizontalSpan = 3;
+		g1.verticalSpan = 3;
+		randomPhoto.setLayoutData(g1);
 		try {
 			do{
 				randomImage = getImage(MotivationalMemes.generateMemes());
@@ -229,7 +228,9 @@ public class MainLayout {
 		randomPhoto.addPaintListener(new PaintListener() {
 			public void paintControl(final PaintEvent event) {
 				if (randomImage != null) {
-					event.gc.drawImage(randomImage, 0, 0);
+					event.gc.drawImage(randomImage, 
+							randomImage.getBounds().x,randomImage.getBounds().y, randomImage.getBounds().width,randomImage.getBounds().height,
+							0, 0, 500, 500);
 				}
 			}
 		});
@@ -275,12 +276,7 @@ public class MainLayout {
 				    }
 				
 			}
-		});
-		
-		
-		
-		
-		
+		});		
 		shell.pack();
 		
 		return shell;
