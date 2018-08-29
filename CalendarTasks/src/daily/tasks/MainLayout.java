@@ -222,7 +222,7 @@ public class MainLayout {
 			do{
 				randomImage = getImage(MotivationalMemes.generateMemes());
 			} while (randomImage == null);
-		} catch (Exception e1) {
+		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		randomPhoto.addPaintListener(new PaintListener() {
@@ -267,7 +267,7 @@ public class MainLayout {
 						randomImage = getImage(MotivationalMemes.generateMemes());
 						randomPhoto.redraw();
 					}
-				} catch (Exception e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				//resizes table columns
@@ -315,12 +315,12 @@ public class MainLayout {
 	}
 	
 	//method for obtaining an image from the MotivationalMemes class
-	public Image getImage(URL a) {
+	public Image getImage(URL url) {
 		InputStream is = null;
 		Image image = null;
 	
 		try {
-			URLConnection urlConnection = a.openConnection();
+			URLConnection urlConnection = url.openConnection();
 			urlConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36");
 			is = urlConnection.getInputStream();
 			
